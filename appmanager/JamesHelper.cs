@@ -18,14 +18,17 @@ namespace mantis_tests
             System.Console.Out.WriteLine(telnet.Read());
         }
 
- 
 
-        public void Delete(AccountData account) { }
-         if (! Verify(account)) { return; }
 
-            //TelnetConnection telnet = new TelnetConnection("localhost", 4555);
+        public void Delete(AccountData account)
+        {
+            if (! Verify(account))
+            {
+                return;
+            }
 
-        TelnetConnection telnet = LoginToJames();
+
+            TelnetConnection telnet = LoginToJames();
         telnet.WriteLine("deluser " + account.Name);
         System.Console.Out.WriteLine(telnet.Read());
 }

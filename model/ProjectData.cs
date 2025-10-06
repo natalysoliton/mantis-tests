@@ -40,11 +40,14 @@ namespace mantis_tests
             return ProjectName.CompareTo(other.ProjectName);
         }
 
-        public string ProjectName { get; set; }
-
         public ProjectData(string projectName)
         {
             ProjectName = projectName;
         }
+
+        public ProjectData() { } 
+
+        public string ProjectName { get; set; }
+        public string Id { get; set; } 
     }
 }

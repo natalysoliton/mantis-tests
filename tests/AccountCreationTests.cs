@@ -1,20 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
-using System.Security.Principal;
 using System.Text;
+using NUnit.Framework;
 
 namespace mantis_tests
 {
-
     [TestFixture]
     public class AccountCreationTests : TestBase
     {
         [OneTimeSetUp]
-
         public void setUpConfig()
         {
             app.Ftp.BackupFile("/config_defaults_inc.php");
@@ -25,25 +20,29 @@ namespace mantis_tests
         }
 
         [Test]
-        /*   public void TestAccountRegistration()
-           {
-               AccountData account = new AccountData();
-               Name = "testuser";
-               PasswordDeriveBytes = "password";
-               Email = "testuser@localhost.localdomain";
-           };
+        public void TestAccountRegistration()
+        {
+            AccountData account = new AccountData()
+            {
+                Name = "mantis",
+                Password = "mantis",
+                Email = "mantis@localhost.localdomain"
+            };
 
-           app.James.Delete(account);
-           app.James.Add(account);
+            List<AccountData> accounts = app.Admin.GetAllAccounts(); 
+            AccountData existingAccount = accounts.Find(x => x.Name == account.Name);
+            if (existingAccount != null) 
+            {
+                app.Admin.DeleteAccount(existingAccount); 
+            }
 
-           app.Registration.Register(account);
-       } */
+            app.Registration.Register(account);
+        }
 
         [OneTimeTearDown]
         public void restoreConfig()
         {
             app.Ftp.RestoreBackupFile("/config_defaults_inc.php");
-
         }
     }
 }
